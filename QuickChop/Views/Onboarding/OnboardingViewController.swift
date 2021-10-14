@@ -33,8 +33,10 @@ class OnboardingViewController: UIViewController {
         slides = [
             OnboardingSlide(title:"Delicious Dishes", description: "Experience a variety of amazing dishes from different cultures around the globe", image: #imageLiteral(resourceName: "slide1")),
             OnboardingSlide(title:"World-class Dishes", description: "Experience a variety of amazing dishes from different cultures around the globe", image: #imageLiteral(resourceName: "slide3")),
-            OnboardingSlide(title:"Instant delivery", description: "The meal you cannot resist", image: #imageLiteral(resourceName: "slide2"))
+            OnboardingSlide(title:"Instant delivery", description: "The meal you cannot resist", image: #imageLiteral(resourceName: "slide2")),
+            
         ]
+        pageControl.numberOfPages = slides.count
         // Do any additional setup after loading the view.
     }
     
