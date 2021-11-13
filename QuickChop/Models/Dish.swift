@@ -15,6 +15,7 @@ struct Dish : Decodable{
     let image : String?
     let calories: Double?
     
+    
     var formatedCalories: String{
         return String(format: "%.2f calories", calories ?? 0)
     }

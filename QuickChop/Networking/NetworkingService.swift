@@ -13,8 +13,9 @@ struct NetworkService{
     
     private init(){ }
     
-    func myFirstRequest(completion: @escaping(Result<[Dish], Error>) -> Void){
-        request(route: .temp, method: .get, completion: completion)
+    func fetchAllCategories(completion:@escaping (Result<AllDishes, Error>) -> Void){
+        request(route: .fetchAllCategories, method: .get, completion: completion)
+        
     }
     
     private func request<T: Decodable>(route: Route, method: Method, parameters: [String: Any]? = nil, completion: @escaping(Result<T, Error>) -> Void){
@@ -29,8 +30,10 @@ struct NetworkService{
             var result: Result<Data, Error>?
             if let data = data {
                 result = .success(data)
-                let responseString = String(data: data, encoding: .utf8) ?? "Could not Stringify our data"
-               // print("The response is: \n\(responseString)")
+             
+               let responseString = String(data: data, encoding: .utf8) ?? "Could not Stringify our data"
+               
+               //print("The response is: \n\(responseString)")
             } else if let error = error {
                 result = .failure(error)
                 print("The error is: \(error.localizedDescription)")
@@ -73,7 +76,7 @@ struct NetworkService{
     }
     
     
-     func createRequest(route: Route, method: Method, parameters : [String: Any]? = nil) ->
+    func createRequest(route: Route, method: Method, parameters : [String: Any]? = nil) ->
     URLRequest? {
         let urlString = Route.baseUrl + route.description
         guard let url = urlString.asUrl else {return nil}

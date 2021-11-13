@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class HomeViewController: UIViewController, UICollectionViewDelegate {
     
@@ -13,55 +14,39 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
     
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var popularCollectionview : UICollectionView!
-    
     @IBOutlet weak var specialCollectionView: UICollectionView!
-    var categories : [DishCategory] = [
-            .init(id:"id1", name: "African Dish", image: "https://picsum.photos/100/200"),
-            .init(id:"id1", name: "American Dish", image: "https://picsum.photos/100/200"),
-            .init(id:"id1", name: "Asian Dish", image: "https://picsum.photos/100/200"),
-            .init(id:"id1", name: "Indian Dish", image: "https://picsum.photos/100/200"),
-            .init(id:"id1", name: "European Dish", image: "https://picsum.photos/100/200")
-    ]
     
-    var populars : [Dish] = [
-        .init(id:"id1", name: "Egusi Soup", description: "am is the best meal you can ever think of For is the best meal you can ever think of For is the best meal you can ever think of",
-            image: "https://picsum.photos/100/200", calories : 38.90),
-        .init(id:"id1", name: "Pounded Yam", description: "For is the best meal you can ever think of,For is the best meal you can ever think of For is the best meal you can ever think of", image: "https://picsum.photos/100/200", calories : 27.90),
-        .init(id:"id1", name: "Jollof Rice", description: "Can is the best meal you can ever think For is the best meal you can ever think of For is the best meal you can ever think of of", image: "https://picsum.photos/100/200", calories : 12.94),
-        
-        .init(id:"id1", name: "Ogbono Soup", description: "For is the best meal you can ever think of For is the best meal you can ever think ofBut is the best meal you can ever think of", image: "https://picsum.photos/100/200", calories : 108.92),
-        .init(id:"id1", name: "Fried Rice", description: "For is the best meal you can ever think of Not is the best meal you can ever think of For is the best meal you can ever think of", image: "https://picsum.photos/100/200", calories : 3.48)
-    ]
+    var categories : [DishCategory] = []
+    var populars : [Dish] = []
     
-    var specials: [Dish] = [
-        .init(id:"id1", name: "Cooked Beet", description: "The new addition to our menu", image: "https://picsum.photos/100/200", calories : 323.8),
-        .init(id:"id1", name: "Teriyaki Chicken", description: "spiced with hot chili", image: "https://picsum.photos/100/200", calories : 124.58),
-        .init(id:"id1", name: "Adobe Chicken", description: "Another one you would love", image: "https://picsum.photos/100/200", calories : 3.48)
-        
-    ]
+    var specials: [Dish] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        NetworkService.shared.myFirstRequest{(result) in
-            switch result{
-            case .success(let data):
-                for dish in data{
-                    print(dish.name ?? "")
-                }
-            case .failure(let error):
-                print("The error is: \(error.localizedDescription)")
-            }
-        }
-        
-//        let service = NetworkService()
-//     let request = service.createRequest(route: .temp, method: .get, parameters: ["firstName" : "Ikenna", "lastName" : "Ifekaonwu"])
-//        print("The URL is: \(request?.url)")
-//        print("The body: \(request?.httpBody)")
-       specialCollectionView.dataSource = self
+        specialCollectionView.dataSource = self
         specialCollectionView.delegate = self
         registerCells()
+        
+        ProgressHUD.show()
+        NetworkService.shared.fetchAllCategories{
+            [weak self] (result) in
+            switch result {
+            case .success(let allDishes):
+               ProgressHUD.dismiss()
+                
+            self?.categories = allDishes.categories ?? []
+            self?.populars = allDishes.populars ?? []
+            self?.specials = allDishes.specials ?? []
+                
+            self?.categoryCollectionView.reloadData()
+            self?.popularCollectionview.reloadData()
+            self?.specialCollectionView.reloadData()
+                
+            case .failure(let error):
+                print("Something went wrong")
+                ProgressHUD.showError(error.localizedDescription)
+            
+        } }
     }
     
     private func registerCells(){

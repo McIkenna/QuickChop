@@ -13,6 +13,7 @@
 		BD5E70492715251B009A8713 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD5E70482715251B009A8713 /* Assets.xcassets */; };
 		BD5E704C2715251B009A8713 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD5E704A2715251B009A8713 /* LaunchScreen.storyboard */; };
 		BD7F8613272C81E300337D3A /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7F8612272C81E300337D3A /* ApiResponse.swift */; };
+		BD7F87262733150500337D3A /* AllDishes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7F87252733150500337D3A /* AllDishes.swift */; };
 		BD9C0FE127152ABA00E359BE /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9C0FE027152ABA00E359BE /* OnboardingViewController.swift */; };
 		BD9C0FE427152CBB00E359BE /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9C0FE327152CBB00E359BE /* UIViewExtension.swift */; };
 		BD9C0FE627152D6F00E359BE /* OnboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9C0FE527152D6F00E359BE /* OnboardingSlide.swift */; };
@@ -53,6 +54,7 @@
 		BD5E704B2715251B009A8713 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD5E704D2715251B009A8713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD7F8612272C81E300337D3A /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		BD7F87252733150500337D3A /* AllDishes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDishes.swift; sourceTree = "<group>"; };
 		BD9C0FE027152ABA00E359BE /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		BD9C0FE327152CBB00E359BE /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		BD9C0FE527152D6F00E359BE /* OnboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlide.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				BD9C10182716D34700E359BE /* DishCategory.swift */,
 				BD9C10AA2718D49800E359BE /* Dish.swift */,
 				BDE30FF72728E93A0024C4B9 /* Order.swift */,
+				BD7F87252733150500337D3A /* AllDishes.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				BD9C101B2716E23600E359BE /* StringExtension.swift in Sources */,
 				BD5E704027152519009A8713 /* AppDelegate.swift in Sources */,
 				BD9C11972721F1E600E359BE /* UIViewControllerExtension.swift in Sources */,
+				BD7F87262733150500337D3A /* AllDishes.swift in Sources */,
 				BD5E704227152519009A8713 /* SceneDelegate.swift in Sources */,
 				BDE310382729D71B0024C4B9 /* Method.swift in Sources */,
 				BD9C0FE427152CBB00E359BE /* UIViewExtension.swift in Sources */,
