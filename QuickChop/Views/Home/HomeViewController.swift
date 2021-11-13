@@ -26,6 +26,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
         specialCollectionView.dataSource = self
         specialCollectionView.delegate = self
         registerCells()
+        let nav = self.navigationController!.navigationBar
+        nav.titleTextAttributes = [.foregroundColor: UIColor.white]
         
         ProgressHUD.show()
         NetworkService.shared.fetchAllCategories{
@@ -48,6 +50,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate {
             
         } }
     }
+
     
     private func registerCells(){
         categoryCollectionView.register(UINib(nibName: CategoryCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
