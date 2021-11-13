@@ -6,24 +6,28 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class ListDishesViewController: UIViewController {
     var category : DishCategory!
     
-    var dishes : [Dish] = [
-        .init(id:"id1", name: "Egusi Soup", description: "am is the best meal you can ever think of For is the best meal you can ever think of For is the best meal you can ever think of",
-            image: "https://picsum.photos/100/200", calories : 38.90),
-        .init(id:"id1", name: "Pounded Yam", description: "For is the best meal you can ever think of,For is the best meal you can ever think of For is the best meal you can ever think of", image: "https://picsum.photos/100/200", calories : 27.90),
-        .init(id:"id1", name: "Jollof Rice", description: "Can is the best meal you can ever think For is the best meal you can ever think of For is the best meal you can ever think of of", image: "https://picsum.photos/100/200", calories : 12.94),
-        
-        .init(id:"id1", name: "Ogbono Soup", description: "For is the best meal you can ever think of For is the best meal you can ever think ofBut is the best meal you can ever think of", image: "https://picsum.photos/100/200", calories : 108.92),
-        .init(id:"id1", name: "Fried Rice", description: "For is the best meal you can ever think of Not is the best meal you can ever think of For is the best meal you can ever think of", image: "https://picsum.photos/100/200", calories : 3.48)
-    ]
+    var dishes : [Dish] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title =  category.name
         registerCells()
+        ProgressHUD.show()
+        NetworkService.shared.fetchCategoryDishes(categoryId: category.id ?? " "){[weak self] (result) in
+            switch result {
+            case .success(let dishes):
+                ProgressHUD.dismiss()
+                self?.dishes = dishes
+                self?.myTableView.reloadData()
+            case .failure(let error):
+                ProgressHUD.showError(error.localizedDescription)
+            }
+        }
         // Do any additional setup after loading the view.
     }
     

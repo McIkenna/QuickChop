@@ -6,31 +6,32 @@
 //
 
 import UIKit
-
+import ProgressHUD
 class ListOrders: UIViewController {
     
     @IBOutlet weak var orderTable : UITableView!
-    var orders : [Order] = [
-        .init(id: "id", name: "Josephine",  dish :
-                    .init(
-            id:"id1", name: "Egusi Soup", description: "am is the best meal you can ever think of For is the best meal you can ever think of For is the best meal you can ever think of",
-            image: "https://picsum.photos/100/200", calories : 38.90)),
-        .init(id: "id", name: "Chidinma",  dish :
-                    .init(id:"id1", name: "Rice Meal", description: "The best meal on the surface of the earth, prepared for personal satisfaction",
-            image: "https://picsum.photos/100/200", calories : 38.90)),
-        .init(id: "id", name: "Kenneth",  dish :
-                    .init(id:"id1", name: "Spaghetti", description: "This is an italian delicacy made for the bold",
-            image: "https://picsum.photos/100/200", calories : 38.90)),
-    ]
+    var orders : [Order] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Orders"
         registerCells()
+        ProgressHUD.show()
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        NetworkService.shared.fetchOrders{[weak self](result) in
+                                          switch result {
+        case .success(let orders):
+            ProgressHUD.dismiss()
+            self?.orders = orders
+            self?.orderTable.reloadData()
+        case .failure(let error):
+            ProgressHUD.showError(error.localizedDescription)
+                                          }}
+    }
     private func registerCells(){
         orderTable.register(UINib(nibName: DishListTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: DishListTableViewCell.identifier)
     }
